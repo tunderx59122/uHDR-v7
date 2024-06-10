@@ -1,0 +1,21 @@
+{
+   "location": {
+      "Inside": false, 
+      "Outside":false
+   },
+   "scene": {
+      "Landscape": false,
+      "Seaside": false,
+      "Cityscape": false,
+      "Street": false, 
+      "Architecture": false,
+      "Interior": false,
+      "View on Outside": false,
+      "View on Inside": false,
+      "Sport": false,
+      "Vehicle": false,
+      "Portrait": false,
+      "Event": false,
+      "Nature": false
+   } 
+}

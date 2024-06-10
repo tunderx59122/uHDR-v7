@@ -1,0 +1,15 @@
+{
+   "lighting": {
+      "Dark interior": false,
+      "Average interior": false,
+      "Bright interior": false,
+      "Backlit": false,
+      "Backlit": false,
+      "Sun in the frame": false, 
+      "Bright outdoor": false ,
+      "Cloudy outdoor": false ,
+      "Direct with deep shadows": false, 
+      "Night": false ,
+      "Sunset": false
+      }
+}

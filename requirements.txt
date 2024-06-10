@@ -1,0 +1,11 @@
+PyQt6
+colour
+colour-science
+scikit-learn
+pathos
+geomdl
+rawpy
+imageio
+scikit-image
+numba
+torch
