@@ -41,7 +41,7 @@ class InfoSelPrefBlock(QTabWidget):
         super().__init__()
 
         # attributes
-        self.infoExifScoreTag : InfoScoreExifTags = InfoScoreExifTags(tags) 
+        self.infoScoreExifTag : InfoScoreExifTags = InfoScoreExifTags(tags) 
         self.selection : Selection = Selection() 
         self.preferences : QWidget = QWidget() 
 
@@ -50,31 +50,31 @@ class InfoSelPrefBlock(QTabWidget):
         self.setMovable(True)
 
         # add widgets
-        self.addTab(self.infoExifScoreTag,"Information")
+        self.addTab(self.infoScoreExifTag,"Information")
         self.addTab(self.selection,"Selection")
         self.addTab(self.preferences,"Preferences")
 
         # callbacks
-        self.infoExifScoreTag.tagChanged.connect(self.CBtagChanged)
-        self.infoExifScoreTag.scoreChanged.connect(self.CBscoreChanged)
+        self.infoScoreExifTag.tagChanged.connect(self.CBtagChanged)
+        self.infoScoreExifTag.scoreChanged.connect(self.CBscoreChanged)
 
         self.selection.scoreSelectionChanged.connect(self.CBscoreSelectionChanged)
     
     # methods
     ## tags
     def setTags(self: Self, tags: dict[Tuple[str,str], bool]) -> None : 
-        self.infoExifScoreTag.setTags(tags)
+        self.infoScoreExifTag.setTags(tags)
 
     def resetTags(self: Self) -> None:
-        self.infoExifScoreTag.resetTags()
+        self.infoScoreExifTag.resetTags()
     
     ## score
     def setScore(self: Self, score:int) -> None:
-        self.infoExifScoreTag.setScore(score)
+        self.infoScoreExifTag.setScore(score)
 
     ## info
     def setInfo(self: Self, name:str, path:str, size : tuple[int,int] =(-1,-1), colorSpace : str = '...', type: str ='...', bps : int =-1) -> None:
-        self.infoExifScoreTag.setInfo(name, path, size , colorSpace, type, bps )
+        self.infoScoreExifTag.setInfo(name, path, size , colorSpace, type, bps )
 
     # -----------------------------------------------------------------
     def CBtagChanged(self, key: tuple[str, str], value : bool) -> None:

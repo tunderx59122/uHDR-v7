@@ -41,7 +41,7 @@ class Selection(QFrame):
 
         # attributes
         self.topLayout : QVBoxLayout = QVBoxLayout() ; self.setLayout(self.topLayout)
-        self.selectByScore : ScoringSelection = ScoringSelection('score:', 6)
+        self.selectByScore : ScoringSelection = ScoringSelection('score:')
 
         self.topLayout.addWidget(self.selectByScore)
         self.topLayout.addStretch()

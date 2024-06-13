@@ -26,6 +26,8 @@ from guiQt.MainWindow import MainWindow
 from app.ImageFIles import ImageFiles
 from app.Tags import Tags
 from app.SelectionMap import SelectionMap
+from hdrCore.processing import exposure as exp
+from uHDR.hdrCore.image import Image
 
 # ------------------------------------------------------------------------------------------
 # --- class App ----------------------------------------------------------------------------
@@ -80,11 +82,13 @@ class App:
         self.mainWindow.scoreChanged.connect(self.CBscoreChanged)
 
         self.mainWindow.scoreSelectionChanged.connect(self.CBscoreSelectionChanged)
-
+        self.mainWindow.editBlock.edit.lightEdit.light.exposure.valueChanged.connect(self.CBExposureChanged)
         self.mainWindow.setPrefs()
 
     # methods
     # -----------------------------------------------------------------
+
+
 
     ##  getImageRangeIndex
     ## ----------------------------------------------------------------
@@ -221,4 +225,13 @@ class App:
         # send info to selectionMap
         self.selectionMap.selectByScore(imageScores, selectedScores)
         self.update()
+        
+    ### exposure changed
+    ### ------------------------------------------------------------------
+    def CBExposureChanged(self : App, exposure : any):
+        print(f'CBExposureChanged')
+        exp.compute(exposure, Image(self.imagesManagement.getImage(self.imagesManagement.imageFilenames[self.selectedImageIdx])))
+    
+    
+    
 # ------------------------------------------------------------------------------------------

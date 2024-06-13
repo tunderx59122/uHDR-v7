@@ -17,9 +17,8 @@
 # import
 # ------------------------------------------------------------------------------------------
 from typing_extensions import Self
-from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QPushButton, QMainWindow
-from PyQt6.QtGui import QDoubleValidator, QIntValidator 
-from PyQt6.QtCore import Qt, pyqtSignal, QLocale, QSize
+from PyQt6.QtWidgets import QScrollArea
+from PyQt6.QtCore import Qt, pyqtSignal
 
 from guiQt.LightBlock import LightBlock
 
@@ -30,7 +29,7 @@ from guiQt.LightBlock import LightBlock
 class LightBlockScroll(QScrollArea):
     # class attributes
     ## signal
-
+    imageSelected = pyqtSignal(object)
     # constructor
     def __init__(self : Self) -> None:
         super().__init__()
@@ -39,6 +38,8 @@ class LightBlockScroll(QScrollArea):
         ## lightblock widget
         self.light : LightBlock = LightBlock()
         self.light.setMinimumSize(500,1500)
+
+        
 
         ## Scroll Area Properties
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
@@ -49,3 +50,22 @@ class LightBlockScroll(QScrollArea):
 # ------------------------------------------------------------------------------------------
 
 
+
+
+        ## signal handling
+        
+        self.light.exposure.valueChanged.connect(self.receivedSignal)    
+
+
+
+# ------------------------------------------------------------------------------------------
+
+
+    ## methods
+        
+    def receivedSignal(self, value:float, isActive:bool):
+        print(f"Signal reçu : Valeur = {value}, Actif = {isActive}")
+        
+
+
+        

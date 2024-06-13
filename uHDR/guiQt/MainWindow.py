@@ -17,12 +17,18 @@
 # import
 # ------------------------------------------------------------------------------------------
 from  __future__ import annotations
+import math
 from typing_extensions import Self
 from typing import Tuple
 from PyQt6.QtWidgets import  QFileDialog, QDockWidget, QMainWindow
 from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtGui import QAction
-
+import colour
+import pathos.multiprocessing
+import copy
+import math
+import numpy as np
+from timeit import default_timer as timer
 from numpy import ndarray
 from app.Tags import Tags
 
@@ -31,6 +37,7 @@ import preferences.Prefs
 from guiQt.AdvanceImageGallery import AdvanceImageGallery
 from guiQt.EditorBlock import EditorBlock
 from guiQt.InfoSelPrefBlock import InfoSelPrefBlock
+from guiQt.LightBlock import LightBlock
 # ------------------------------------------------------------------------------------------
 # --- class MainWindow(QMainWindow) --------------------------------------------------------
 # ------------------------------------------------------------------------------------------
@@ -46,6 +53,7 @@ class MainWindow(QMainWindow):
     tagChanged : pyqtSignal = pyqtSignal(tuple,bool)
     scoreChanged : pyqtSignal = pyqtSignal(int)
     scoreSelectionChanged : pyqtSignal = pyqtSignal(list)
+    exposureChanged : pyqtSignal = pyqtSignal(float)
 
     # constructor
     # -------------------------------------------------------------------------------------------
@@ -58,7 +66,7 @@ class MainWindow(QMainWindow):
 
         self.editBlock : EditorBlock =EditorBlock()
         self.imageGallery : AdvanceImageGallery  = AdvanceImageGallery(nbImages)
-
+        
 
         self.metaDock : QDockWidget = QDockWidget("INFO. - SELECTION - PREFERENCES")
         self.metaDock.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea)
@@ -82,6 +90,7 @@ class MainWindow(QMainWindow):
         self.metaBlock.tagChanged.connect(self.CBtagChanged)
         self.metaBlock.scoreChanged.connect(self.CBscoreChanged)
         self.metaBlock.scoreSelectionChanged.connect(self.CBscoreSelectionChanged)
+        
 
     # methods
     # -------------------------------------------------------------------
@@ -156,6 +165,12 @@ class MainWindow(QMainWindow):
         quit.triggered.connect(lambda x: print('quit'))
         fileMenu.addAction(quit)
 
+    
+
+    
+
+
+
     ## callbacks
     ## -------------------------------------------------------------------
     ### select dir
@@ -166,25 +181,26 @@ class MainWindow(QMainWindow):
     ## -------------------------------------------------------------------
     ### requestImages
     def CBrequestImages(self: Self, minIdx: int, maxIdx: int) -> None:
-        if debug : print(f'MainWindow.CBrequestImages({minIdx},{maxIdx})')
+        print(f'MainWindow.CBrequestImages({minIdx},{maxIdx})')
         self.requestImages.emit(minIdx, maxIdx)
 
     ## -------------------------------------------------------------------
     ### image selected
     def CBimageSelected(self: Self, idx: int) -> None:
-        if debug : print(f'MainWindow.CBimageSelected({idx})')
+        print(f'MainWindow.CBimageSelected({idx})')
+        self.selectedImage = idx
         self.imageSelected.emit(idx)
 
     # -----------------------------------------------------------------
     def CBtagChanged(self, key: tuple[str, str], value : bool) -> None:
-        if debug : print(f'guiQt.MainWindow.CBtagChanged({key},{value}) > emit !')
+        print(f'guiQt.MainWindow.CBtagChanged({key},{value}) > emit !')
         self.tagChanged.emit(key,value)
     # -----------------------------------------------------------------
     def CBscoreChanged(self, value : int) -> None:
-        if debug : print(f'guiQt.MainWindow.CBscoreChanged({value}) > emit !')
+        print(f'guiQt.MainWindow.CBscoreChanged({value}) > emit !')
         self.scoreChanged.emit(value)
     # -----------------------------------------------------------------
     def CBscoreSelectionChanged(self: Self, scoreSelection: list) -> None:
-        if debug : print(f'guiQt.MainWindow.CBscoreSelectionChanged({scoreSelection})') 
+        print(f'guiQt.MainWindow.CBscoreSelectionChanged({scoreSelection})') 
         self.scoreSelectionChanged.emit(scoreSelection)
 # ------------------------------------------------------------------------------------------

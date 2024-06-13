@@ -18,13 +18,11 @@
 # ------------------------------------------------------------------------------------------
 from typing_extensions import Self
 from PyQt6.QtWidgets import QFrame, QVBoxLayout
-from PyQt6.QtGui import QDoubleValidator, QIntValidator 
-from PyQt6.QtCore import Qt, pyqtSignal, QLocale
+from PyQt6.QtCore import pyqtSignal
 
 from guiQt.AdvanceSlider import AdvanceSlider
 from guiQt.Contrast import Contrast
 from guiQt.CurveWidget import CurveWidget
-from guiQt.MemoGroup import MemoGroup
 
 # ------------------------------------------------------------------------------------------
 # --- class ColorEditor (QFrame) ------------------------------------------------------
@@ -32,12 +30,13 @@ from guiQt.MemoGroup import MemoGroup
 class LightBlock(QFrame):
     # class attributes
     ## signal
+    imageSelected = pyqtSignal(object)
 
     # constructor
     def __init__(self : Self) -> None:
         super().__init__()
         self.setFrameShape(QFrame.Shape.StyledPanel)
-
+        
         # attributes
         self.active : bool = True
 
@@ -55,6 +54,7 @@ class LightBlock(QFrame):
         self.topLayout.addWidget(self.contrast)
         self.topLayout.addWidget(self.curve)
         #self.topLayout.addWidget(self.memory)
+        
+        
+        
 # ------------------------------------------------------------------------------------------
-
-
