@@ -27,7 +27,7 @@ from app.ImageFIles import ImageFiles
 from app.Tags import Tags
 from app.SelectionMap import SelectionMap
 from hdrCore.processing import exposure as exp
-from uHDR.hdrCore.image import Image
+from hdrCore.image import Image
 
 # ------------------------------------------------------------------------------------------
 # --- class App ----------------------------------------------------------------------------
